@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use("/api/auth", authRouter);
+app.use("/", express.static("static"));
 
 db.sequelize
   .sync()
