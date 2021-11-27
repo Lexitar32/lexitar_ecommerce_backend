@@ -29,13 +29,9 @@ exports.registerUser = async (req, res) => {
       user,
       emailVerificationToken
     );
-
-    if (mailResponse) {
       res.status(201).send({
         message: "User Created, check your mail to verify account",
-        emailVerificationToken,
       });
-    }
   } catch (err) {
     res.status(400).send({
       message: err.message || "Email Taken By Another User",
@@ -71,9 +67,7 @@ exports.verifyUser = async (req, res) => {
     );
 
     if (response.length === 1) {
-      res.status(200).send({
-        message: "Email Verification successful",
-      });
+      res.redirect(200, "http://localhost:3000/login");
     }
   } catch (err) {
     res.status(403).send({
@@ -149,3 +143,29 @@ exports.logOutUser = (req, res) => {
     message: "User Cookie cleared, proceed to log user out",
   });
 };
+
+exports.forgotPassword = async (req, res) => {
+
+  const email = req.body.email;
+  try {
+
+    if(!email) throw new Error('Invalid Request');
+
+    const user = await db.users.findOne({ where: { email } });
+
+    if(!user) throw new Error('This email does not exist');
+
+     const token = createEmailVerificationToken(user);
+      
+
+
+
+  }
+  catch(err){
+     res.status(404).send({
+       message: err.message
+     })
+  }
+
+
+}

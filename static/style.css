@@ -1,3 +1,9 @@
 body {
-  color: blue;
+  padding: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  padding: 0.3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.19);
 }
